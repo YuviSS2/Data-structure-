@@ -1,0 +1,64 @@
+int main() {
+    int n, i;
+    int t1 = 0, t2 = 1, nextTerm;
+
+    // Step 1: Input the number of terms
+    printf("Enter the number of terms: ");
+    scanf("%d", &n);
+
+    printf("Fibonacci Series: ");
+
+    // Step 2: Generate Fibonacci series
+    for(i = 1; i <= n; i++) {
+        printf("%d ", t1);
+        nextTerm = t1 + t2; // Step 3: Calculate next term
+        t1 = t2;            // Step 4: Update t1
+        t2 = nextTerm;      // Step 5: Update t2
+    }
+    printf("\n");
+
+    return 0;
+}
+```[cite: 7, 8]
+
+---
+
+#### (B) Compare Three Numbers and Find Min and Max
+```c
+include <stdio.h>
+int main() {
+    int num1, num2, num3;
+    int max, min;
+
+    // Step 1: Input three numbers
+    printf("Enter three numbers: ");
+    scanf("%d %d %d", &num1, &num2, &num3);
+
+    // Step 2: Assume first number is max and min initially
+    max = min = num1;
+
+    // Step 3: Compare to find maximum
+    if(num2 > max) {
+        max = num2;
+    }
+    if(num3 > max) {
+        max = num3;
+    }
+
+    // Step 4: Compare to find minimum
+    if(num2 < min) {
+        min = num2;
+    }
+    if(num3 < min) {
+        min = num3;
+    }
+
+    // Step 5: Display maximum and minimum
+    printf("Maximum number: %d\n", max);
+    printf("Minimum number: %d\n", min);
+
+    return 0;
+}
+```[cite: 9, 10]
+
+---
