@@ -1,0 +1,68 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Structure to represent an edge
+struct Edge {
+    int u, v, weight;
+};
+
+// Function to find parent of a node (for union-find)
+int find(int parent[], int i) {
+    if (parent[i] == -1)
+        return i;
+    return find(parent, parent[i]);
+}
+
+// Function to perform union of two sets
+void unionSets(int parent[], int x, int y) {
+    int xset = find(parent, x);
+    int yset = find(parent, y);
+    if (xset != yset)
+        parent[xset] = yset;
+}
+
+// Comparison function for sorting edges by weight
+int compare(const void* a, const void* b) {
+    struct Edge* e1 = (struct Edge*)a;
+    struct Edge* e2 = (struct Edge*)b;
+    return e1->weight - e2->weight;
+}
+
+int main() {
+    int V, E; // Number of vertices and edges
+    printf("Enter number of vertices: ");
+    scanf("%d", &V);
+    printf("Enter number of edges: ");
+    scanf("%d", &E);
+
+    struct Edge edges[E];
+    printf("Enter edges in format: u v weight\n");
+    for (int i = 0; i < E; i++) {
+        scanf("%d %d %d", &edges[i].u, &edges[i].v, &edges[i].weight);
+    }
+
+    // Sort edges by weight
+    qsort(edges, E, sizeof(struct Edge), compare);
+
+    int parent[V];
+    for (int i = 0; i < V; i++)
+        parent[i] = -1;
+
+    printf("\nEdges in Minimum Spanning Tree:\n");
+    int mst_weight = 0;
+    for (int i = 0, count = 0; count < V - 1 && i < E; i++) {
+        int u_set = find(parent, edges[i].u);
+        int v_set = find(parent, edges[i].v);
+
+        if (u_set != v_set) { // No cycle
+            printf("%d - %d : %d\n", edges[i].u, edges[i].v, edges[i].weight);
+            mst_weight += edges[i].weight;
+            unionSets(parent, u_set, v_set);
+            count++;
+        }
+    }
+
+    printf("Total weight of MST: %d\n", mst_weight);
+    return 0;
+}
+```[cite: 52, 53, 54]
